@@ -3,7 +3,6 @@ import { Router } from 'express';
 import middlewareJWT from './app/middlewares/middlewareJWT';
 import middlewareApiSecret from './app/middlewares/middlewareApiSecret';
 
-import UserController from './app/controllers/UserController';
 import ExamController from './app/controllers/ExamController';
 import SessionController from './app/controllers/SessionController';
 import LaboratoryController from './app/controllers/LaboratoryController';
@@ -24,8 +23,8 @@ class Routes
 
         this.routes.get('/api/v1/exam', ExamController.listExams);
         this.routes.post('/api/v1/exam', ExamController.createExam);
-        this.routes.put('/api/v1/exam', ExamController.updateExam);
-        this.routes.delete('/api/v1/exam', ExamController.deleteExam);
+        this.routes.put('/api/v1/exam/:id_exam', ExamController.updateExam);
+        this.routes.delete('/api/v1/exam/:id_exam', ExamController.deleteExam);
 
         this.routes.get('/api/v1/laboratory', LaboratoryController.listLaboratorys);
         this.routes.post('/api/v1/laboratory', LaboratoryController.createLaboratory);

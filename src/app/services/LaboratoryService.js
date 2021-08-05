@@ -118,7 +118,6 @@ class LaboratoryService
         } catch (error) {
             console.log(error);
         }
-
     }
 }
 

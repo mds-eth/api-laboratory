@@ -5,9 +5,8 @@ import dbConfig from '../../config/database';
 import ExamsModel from '../../app/models/ExamsModel';
 import LaboratorysModel from '../../app/models/LaboratorysModel';
 import RequestsModel from '../../app/models/RequestsModel';
-import UsersModel from '../../app/models/UsersModel';
 
-const models = [ExamsModel, LaboratorysModel, RequestsModel, UsersModel];
+const models = [ExamsModel, LaboratorysModel, RequestsModel];
 
 class Database
 {
