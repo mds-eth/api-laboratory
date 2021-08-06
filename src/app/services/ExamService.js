@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import ExamModel from '../models/ExamsModel';
+import ExamsLaboratorys from '../models/ExamsLaboratoryModel';
 
 class ExamService
 {
@@ -10,9 +11,9 @@ class ExamService
 
             const uuid = uuidv4();
 
-            const { name, type } = data;
+            const { name, type, value } = data;
 
-            const exame = await ExamModel.create({ uuid, name, type });
+            const exame = await ExamModel.create({ uuid, name, type, value });
 
             if (exame) {
                 return {
@@ -44,7 +45,7 @@ class ExamService
     {
         const exams = await ExamModel.findAll({
             where: { status: true },
-            attributes: ['id', 'uuid', 'name', 'type']
+            attributes: ['id', 'uuid', 'name', 'type', 'value']
         });
 
         return exams;
@@ -56,7 +57,7 @@ class ExamService
         try {
             const { id_exam, data } = params;
 
-            const { name, type } = data;
+            const { name, type, value } = data;
 
             const exam = await ExamModel.findOne({
                 where: { id: id_exam, status: true }
@@ -64,7 +65,7 @@ class ExamService
 
             if (exam) {
                 const response = await ExamModel.update(
-                    { name, type },
+                    { name, type, value },
                     { where: { id: id_exam } }
                 );
 
@@ -97,6 +98,17 @@ class ExamService
         });
 
         if (exam) {
+
+            const existsAssociation = await ExamsLaboratorys.findOne({
+                where: { fk_id_exam: id }
+            });
+
+            if (existsAssociation) {
+                return {
+                    status: false,
+                    message: 'Você não pode remover este exame pois ele possui vinculação com um ou mais laboratórios. Favor verificar.'
+                }
+            }
             const response = await ExamModel.update(
                 { status: false },
                 { where: { id } }

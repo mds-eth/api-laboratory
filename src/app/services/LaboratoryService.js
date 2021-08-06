@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import LaboratoryModel from '../models/LaboratorysModel';
+import ExamsLaboratorys from '../models/ExamsLaboratoryModel';
 
 class LaboratoryService
 {
@@ -57,6 +58,18 @@ class LaboratoryService
         });
 
         if (laboratory) {
+
+            const existsAssociation = await ExamsLaboratorys.findOne({
+                where: { fk_id_laboratory: id }
+            });
+
+            if (existsAssociation) {
+                return {
+                    status: false,
+                    message: 'Você não pode remover este laboratório pois ele possui vinculação com um ou mais exames. Favor verificar.'
+                }
+            }
+
             const response = await LaboratoryModel.update(
                 { status: false },
                 { where: { id } }

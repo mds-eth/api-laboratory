@@ -6,6 +6,7 @@ import middlewareApiSecret from './app/middlewares/middlewareApiSecret';
 import ExamController from './app/controllers/ExamController';
 import SessionController from './app/controllers/SessionController';
 import LaboratoryController from './app/controllers/LaboratoryController';
+import AssociationController from './app/controllers/AssociationController';
 
 class Routes
 {
@@ -30,6 +31,28 @@ class Routes
         this.routes.post('/api/v1/laboratory', LaboratoryController.createLaboratory);
         this.routes.put('/api/v1/laboratory/:id_laboratory', LaboratoryController.updateLaboratory);
         this.routes.delete('/api/v1/laboratory/:id_laboratory', LaboratoryController.deleteLaboratory);
+
+        this.routes.post('/api/v1/association-exam-laboratory', AssociationController.createAssociatonExamLaboratory);
+
+        this.routes.get('*', (req, res) =>
+        {
+            return res.status(404).json({ status: false, message: 'Route Not Found.' });
+        });
+
+        this.routes.post('*', (req, res) =>
+        {
+            return res.status(404).json({ status: false, message: 'Route Not Found.' });
+        });
+
+        this.routes.put('*', (req, res) =>
+        {
+            return res.status(404).json({ status: false, message: 'Route Not Found.' });
+        });
+
+        this.routes.delete('*', (req, res) =>
+        {
+            return res.status(404).json({ status: false, message: 'Route Not Found.' });
+        });
 
     }
 }

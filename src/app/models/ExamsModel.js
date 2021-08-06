@@ -9,6 +9,7 @@ export default class Exams extends Model
                 uuid: Sequelize.UUIDV4,
                 name: Sequelize.STRING,
                 type: Sequelize.STRING,
+                value: Sequelize.FLOAT,
                 status: Sequelize.BOOLEAN
             },
 
