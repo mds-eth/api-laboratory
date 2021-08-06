@@ -35,7 +35,11 @@ class AssociationService
             return await this.saveAssociation(id_exam, ids_laboratory, existsExam.name)
 
         } catch (error) {
-            console.log(error);
+            return {
+                statusCode: 400,
+                valid: false,
+                message: 'Ocorreu algum erro ao realizar associação de exame ao laboratório.',
+            }
         }
     }
 
@@ -88,6 +92,64 @@ class AssociationService
             statusCode: 200,
             valid: true,
             message: `Exame: ${examName}, foi vinculado aos laboratórios com ids: ${idsLab.slice(0, -1)}. Ids laboratórios: ${idsNotLab.slice(0, -1)} não foram localizados.`,
+        }
+    }
+
+    async disassociateExamLaboratoryService(id_exam, id_laboratory)
+    {
+        try {
+
+            const existsExam = await ExamModel.findOne({
+                where: { id: id_exam, status: true }
+            });
+
+            if (!existsExam) {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    message: 'Exame não existente, favor verificar id enviado.',
+                }
+            }
+
+            const existsLab = await LaboratoryModel.findOne({
+                where: { id: id_laboratory, status: true }
+            });
+
+            if (!existsLab) {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    message: 'Laboratório não existente, favor verificar id enviado.',
+                }
+            }
+
+            const existsAssociation = await ExamsLaboratorys.findOne({
+                where: { fk_id_exam: id_exam, fk_id_laboratory: id_laboratory }
+            });
+
+            if (!existsAssociation) {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    message: 'Não existe vinculação de exames a este laboratório.',
+                }
+            }
+
+            await ExamsLaboratorys.destroy({
+                where: { fk_id_exam: id_exam, fk_id_laboratory: id_laboratory }
+            });
+
+            return {
+                statusCode: 200,
+                valid: false,
+                message: 'Desassociação realizada com sucesso.',
+            }
+        } catch (error) {
+            return {
+                statusCode: 400,
+                valid: false,
+                message: 'Ocorreu algum erro ao realizar a desassociação de exame e laboratório.',
+            }
         }
     }
 }

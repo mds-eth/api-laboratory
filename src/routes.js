@@ -33,6 +33,8 @@ class Routes
         this.routes.delete('/api/v1/laboratory/:id_laboratory', LaboratoryController.deleteLaboratory);
 
         this.routes.post('/api/v1/association-exam-laboratory', AssociationController.createAssociatonExamLaboratory);
+        this.routes.delete('/api/v1/exame/:id_exam/laboratory/:id_laboratory', AssociationController.disassociateExamLaboratory);
+
 
         this.routes.get('*', (req, res) =>
         {
