@@ -4,6 +4,9 @@ import cors from 'cors';
 
 import routes from './routes';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './swagger.json';
+
 import './database/mysql';
 
 class App
@@ -20,12 +23,13 @@ class App
     middlewares()
     {
         this.server.use(express.json());
+        this.server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     }
 
     configCors()
     {
         const whitelist = ['http://localhost:3000'];
-        
+
         this.server.use(cors(whitelist));
     }
 

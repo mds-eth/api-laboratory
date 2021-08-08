@@ -1,0 +1,66 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Exames - Laboratórios",
+        "description": "Essa API tem como objetivo o cadastro, atualização, exclusão lógica, e busca de exames e laboratórios. Bem como vinculação de exames à laboratórios",
+        "version": "1.0.0",
+        "contact": {
+            "email": "michaeldouglas.10.94@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3003/v1",
+            "description": "API Local"
+        },
+        {
+            "url": "http://192.169.10.2:3003/v1",
+            "description": "API AWS ec2"
+        }
+    ],
+    "paths": {
+        "/api/v1/exam": {
+            "post": {
+                "summary": "Cadastro de Exame",
+                "description": "Esta rota irá realizar o cadastro de um novo exame",
+                "tags": [
+                    "Exams"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Exams"
+                            },
+                            "examples": {
+                                "exams": {
+                                    "name": "Ressonância Magnética",
+                                    "type": "Imagem",
+                                    "value": "1"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Exams": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

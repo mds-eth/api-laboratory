@@ -1,0 +1,18 @@
+mysql:
+    image: mysql
+    container_name: "container_mysql_api_laboratory"
+    restart: always
+    environment:
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE_MYSQL}
+      MYSQL_USER: ${DB_USER_MYSQL}
+      MYSQL_PASSWORD: ${DB_PASS_MYSQL}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_volume_api_laboratory:/var/lib/mysql/
+
+volumes:
+  mysql_volume_api_laboratory:
+    driver: local

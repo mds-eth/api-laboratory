@@ -7,6 +7,7 @@ import ExamController from './app/controllers/ExamController';
 import SessionController from './app/controllers/SessionController';
 import LaboratoryController from './app/controllers/LaboratoryController';
 import AssociationController from './app/controllers/AssociationController';
+import ExamLaboratoryController from './app/controllers/ExamLaboratoryController';
 
 class Routes
 {
@@ -35,6 +36,7 @@ class Routes
         this.routes.post('/api/v1/association-exam-laboratory', AssociationController.createAssociatonExamLaboratory);
         this.routes.delete('/api/v1/exame/:id_exam/laboratory/:id_laboratory', AssociationController.disassociateExamLaboratory);
 
+        this.routes.get('/api/v1/list-laboratorys/:exam_name', ExamLaboratoryController.getListLaboratorysExam);
 
         this.routes.get('*', (req, res) =>
         {
