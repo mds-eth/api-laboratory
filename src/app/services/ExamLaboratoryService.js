@@ -1,4 +1,5 @@
 import ExamModel from '../models/ExamsModel';
+import LaboratoryModel from '../models/LaboratorysModel';
 import ExamsLaboratorys from '../models/ExamsLaboratoryModel';
 
 import { Op } from 'sequelize';
@@ -9,7 +10,7 @@ class ExamLaboratoryService
     {
         const response = await ExamModel.findAll({
             where: { name: { [Op.like]: `%${examName}%` }, status: true },
-            attributes: ['uuid', 'name', 'type', 'value'],            
+            attributes: ['uuid', 'name', 'type', 'value']
         });
 
         if (response) {

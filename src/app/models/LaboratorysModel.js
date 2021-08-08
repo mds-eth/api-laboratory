@@ -21,4 +21,9 @@ export default class Laboratorys extends Model
         );
         return this;
     }
+
+    static associate(models)
+    {
+        this.belongsToMany(models.Exams, { through: 'exams_laboratorys', foreignKey: 'fk_id_laboratory' });
+    }
 }

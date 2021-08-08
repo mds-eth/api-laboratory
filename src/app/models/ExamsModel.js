@@ -22,6 +22,6 @@ export default class Exams extends Model
 
     static associate(models)
     {
-        this.belongsToMany(models.Laboratorys, { through: 'exams_laboratorys', foreignKey: 'fk_id_exam', as: 'laboratory' });
+        this.belongsToMany(models.Laboratorys, { through: 'exams_laboratorys', foreignKey: 'fk_id_exam' });
     }
 }
