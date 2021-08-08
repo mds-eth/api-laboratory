@@ -8,7 +8,7 @@ export default async function (req, res, next)
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-        return res.status(401).json({ status: false, message: 'Campo Authorization obrigatório não enviado.' });
+        return res.status(401).json({ status: false, message: 'Unauthorized.' });
     }
 
     try {
@@ -21,6 +21,6 @@ export default async function (req, res, next)
 
         return next();
     } catch (err) {
-        return res.status(401).json({ status: false, message: 'Não autorizado.' });
+        return res.status(401).json({ status: false, message: 'Unauthorized' });
     }
 }

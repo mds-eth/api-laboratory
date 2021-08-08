@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3003/v1",
+            "url": "http://localhost:3003/",
             "description": "API Local"
         },
         {
@@ -19,24 +19,619 @@
         }
     ],
     "paths": {
+        "/api/v1/create-session": {
+            "post": {
+                "summary": "Cria sessão para utilizar API",
+                "description": "Esta rota irá retornar token JWT para se autenticar de forma segura nos endpoints da API.",
+                "tags": [
+                    "Sessão"
+                ],
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Acesso não autorizado. Chave inválida."
+                    },
+                    "400": {
+                        "description": "Ocorreu algum erro ao realizar a criação da sua sessão."
+                    },
+                    "200": {
+                        "description": "Token JWT criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Sessao"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/exam": {
             "post": {
                 "summary": "Cadastro de Exame",
                 "description": "Esta rota irá realizar o cadastro de um novo exame",
                 "tags": [
-                    "Exams"
+                    "Exames"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Exams"
+                                "$ref": "#/components/schemas/Exames"
                             },
                             "examples": {
                                 "exams": {
-                                    "name": "Ressonância Magnética",
-                                    "type": "Imagem",
-                                    "value": "1"
+                                    "value": {
+                                        "name": "Ressonância Magnética",
+                                        "type": "Imagem",
+                                        "value": 250.50
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Algum valor inválido de campo enviado. E ou erro ao cadastrar novo exame"
+                    },
+                    "201": {
+                        "description": "Exame cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Exames"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de Exames",
+                "description": "Esta rota irá retornar uma lista de Exames Ativos",
+                "tags": [
+                    "Exames"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Erro ao localizar exames ativos."
+                    },
+                    "200": {
+                        "description": "Uma array de objetos de Exames ativos."
+                    }
+                }
+            }
+        },
+        "/api/v1/exam/{id_exam}": {
+            "put": {
+                "summary": "Atualiza Exame",
+                "description": "Esta rota irá atualizar um exame existente e ativo",
+                "tags": [
+                    "Exames"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_exam",
+                        "in": "path",
+                        "description": "ID de exame à ser alterado",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Exames"
+                            },
+                            "examples": {
+                                "exams": {
+                                    "value": {
+                                        "name": "Ressonância Magnética",
+                                        "type": "Imagem",
+                                        "value": 250.50
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Algum valor inválido de campo enviado. E ou erro ao cadastrar novo exame"
+                    },
+                    "200": {
+                        "description": "Exame atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/UpdateExames"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove Exame",
+                "description": "Esta rota irá remover um exame ativo, caso ele não esteja vinculado a nenhum laboratório ativo",
+                "tags": [
+                    "Exames"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_exam",
+                        "in": "path",
+                        "description": "ID de exame à ser excluído",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Caso exame não esteja ativo, ou exame esteja vinculado com algum laboratório ativo. Status Code retornará 400"
+                    },
+                    "204": {
+                        "description": "Exame removido com sucesso"
+                    }
+                }
+            }
+        },
+        "/api/v1/inactive-exams": {
+            "get": {
+                "summary": "Listagem de Exames Inativos",
+                "description": "Esta rota irá retornar uma lista de Exames Inativos",
+                "tags": [
+                    "Exames"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Erro ao localizar exames inativos."
+                    },
+                    "200": {
+                        "description": "Uma array de objetos de Exames inativos."
+                    }
+                }
+            }
+        },
+        "/api/v1/exam/activate-exam/{id_exam}": {
+            "put": {
+                "summary": "Ativa um exame inativo.",
+                "description": "Esta rota irá ativar novamente um exame que esteja inativo e existe na base.",
+                "tags": [
+                    "Exames"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_exam",
+                        "in": "path",
+                        "description": "ID exame à ser ativado",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Exame está ativa ou não foi localizado."
+                    },
+                    "200": {
+                        "description": "Exame ativo com sucesso."
+                    }
+                }
+            }
+        },
+        "/api/v1/laboratory": {
+            "post": {
+                "summary": "Cadastro de Laboratório",
+                "description": "Esta rota irá realizar o cadastro de um novo laboratório",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Laboratorios"
+                            },
+                            "examples": {
+                                "exams": {
+                                    "value": {
+                                        "name": "Analise Detalhada - Laboratório Clinico",
+                                        "address": "Rua Jarbas Nunes",
+                                        "opening_time": "05:00",
+                                        "closing_time": "22:00",
+                                        "phone": "4135446688"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Algum valor inválido de campo enviado. E ou erro ao cadastrar novo laboratório"
+                    },
+                    "201": {
+                        "description": "Laboratório cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Laboratorios"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de Laboratórios",
+                "description": "Esta rota irá retornar uma listagem de Laboratórios Ativos",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Erro ao localizar laboratórios ativos."
+                    },
+                    "200": {
+                        "description": "Uma array de objetos de Laboratórios ativos."
+                    }
+                }
+            }
+        },
+        "/api/v1/laboratory/{id_laboratory}": {
+            "put": {
+                "summary": "Atualiza Laboratório",
+                "description": "Esta rota irá atualizar um laboratório existente e ativo.",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_laboratory",
+                        "in": "path",
+                        "description": "ID laboratório à ser alterado",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Laboratorios"
+                            },
+                            "examples": {
+                                "exams": {
+                                    "value": {
+                                        "name": "Analise Detalhada - Laboratório Clinico",
+                                        "address": "Rua Jarbas Nunes",
+                                        "opening_time": "05:00",
+                                        "closing_time": "22:00",
+                                        "phone": "4135446688"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Algum valor inválido de campo enviado. E ou erro ao atualizar novo laboratório"
+                    },
+                    "201": {
+                        "description": "Laboratório atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Laboratorios"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove Laboratório",
+                "description": "Esta rota irá remover um laboratório ativo, caso ele não esteja vinculado a nenhum exame ativo",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_laboratory",
+                        "in": "path",
+                        "description": "ID laboratório à ser removido",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Caso laboratório esteja vinculado a no minimo um exame, status code 400 irá ser apresentado com mensagem."
+                    },
+                    "204": {
+                        "description": "Laboratório removido com sucesso."
+                    }
+                }
+            }
+        },
+        "/api/v1/inactive-laboratory": {
+            "get": {
+                "summary": "Listagem de Laboratórios Inativos",
+                "description": "Esta rota irá retornar uma listagem de Laboratórios Inativos",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Erro ao localizar laboratórios inativos."
+                    },
+                    "200": {
+                        "description": "Uma array de objetos de Laboratórios inativos."
+                    }
+                }
+            }
+        },
+        "/api/v1/laboratory/activate-laboratory/{id_laboratory}": {
+            "put": {
+                "summary": "Ativa um laboratório inativo",
+                "description": "Esta rota irá ativar um laboratório que esteja inativo e exista no banco de dados.",
+                "tags": [
+                    "Laboratórios"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id_laboratory",
+                        "in": "path",
+                        "description": "ID laboratório à ser ativado",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Laboratório está ativo ou não foi localizado."
+                    },
+                    "200": {
+                        "description": "Laboratório ativado com sucesso."
+                    }
+                }
+            }
+        },
+        "/api/v1/association-exam-laboratory": {
+            "post": {
+                "summary": "Associa um exame ativo à um ou mais laboratórios ativos",
+                "description": "Esta rota irá realizar a associação de um exame ativo à um ou mais laboratórios ativos.",
+                "tags": [
+                    "Associação/Desassociação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Laboratorios"
+                            },
+                            "examples": {
+                                "exams": {
+                                    "value": {
+                                        "id_exam": 1,
+                                        "ids_laboratory": [
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Caso body obrigatório não seja enviado, e ou ids enviados não sejam validos/ativos ou não existirem, status code 400 irá ser apresentado com a devida mensagem."
+                    },
+                    "200": {
+                        "description": "Associação realizada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Laboratorios"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/exame/{id_exam}/laboratory/{id_laboratory}": {
+            "delete": {
+                "summary": "Desassocia um exame ativo de um laboratório ativo.",
+                "description": "Esta rota desassociar um um exame ativo de um laboratório ativo.",
+                "tags": [
+                    "Associação/Desassociação"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_exam",
+                        "in": "path",
+                        "description": "ID exame à ser desassociado",
+                        "required": true
+                    },
+                    {
+                        "name": "id_laboratory",
+                        "in": "path",
+                        "description": "ID laboratório à ser desassociado",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Caso parâmetros obrigatórios não sejam enviados, ou exame não seja localizado ou nao esteja ativo, ou laboratório nao esteja ativo e não haja associação dos parâmetros enviados, status code 400 com a devida mensagem será apresentado.."
+                    },
+                    "200": {
+                        "description": "Desassociação realizada com sucesso."
+                    }
+                }
+            }
+        },
+        "/api/v1/list-laboratorys/{exam_name}": {
+            "get": {
+                "summary": "Realiza a busca de um exame, e retorna todos os laboratórios ativos vinculados à ele.",
+                "description": "Esta rota irá buscar um exame, e com o resultado, filtrar todos os laboratórios vinculados à ele.",
+                "tags": [
+                    "Exames/Laboratórios"
+                ],
+                "parameters": [
+                    {
+                        "name": "exam_name",
+                        "in": "path",
+                        "description": "Nome exame à ser realizado a busca.",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Caso parâmetro obrigatório não seja enviado, ou ocorra algum erro na busca, status code 400 com a devida mensagem irá ser apresentado."
+                    },
+                    "200": {
+                        "description": "Busca realizada som sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Laboratorios"
                                 }
                             }
                         }
@@ -47,7 +642,7 @@
     },
     "components": {
         "schemas": {
-            "Exams": {
+            "Exames": {
                 "type": "object",
                 "properties": {
                     "name": {
@@ -57,9 +652,66 @@
                         "type": "string"
                     },
                     "value": {
+                        "type": "float"
+                    }
+                }
+            },
+            "Laboratorios": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "opening_time": {
+                        "type": "float"
+                    },
+                    "closing_time": {
+                        "type": "float"
+                    },
+                    "phone": {
+                        "type": "float"
+                    }
+                }
+            },
+            "UpdateExames": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "response": {
+                        "type": "object"
+                    }
+                }
+            },
+            "Sessao": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "token": {
                         "type": "string"
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            },
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "api-secret"
             }
         }
     }

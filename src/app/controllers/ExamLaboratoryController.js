@@ -13,7 +13,7 @@ class ExamLaboratoryController
         const response = await ExamLaboratoryService.getListLaboratorysExamService(exam_name);
 
         if (response.status) {
-            return res.status(200).json({ status: true, response });
+            return res.status(200).json({ status: true, examName: response.examName, response: response.response });
         }
 
         return res.status(400).json({ status: false, response });

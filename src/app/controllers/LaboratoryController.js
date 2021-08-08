@@ -26,9 +26,33 @@ class LaboratoryController
         return res.status(400).json({ status: false, response: response.message });
     }
 
+    async activateLaboratory(req, res)
+    {
+        const { id_laboratory } = req.params;
+
+        if (id_laboratory === '') {
+            return res.status(400).json({ status: false, response: 'ID Laboratório à ser ativado não informado.' });
+        }
+
+        const response = await LaboratoryService.activateLaboratoryService(id_laboratory);
+
+        if (response.status) {
+            return res.status(200).json({ status: true, response: response.response });
+        }
+
+        return res.status(400).json({ status: false, response: response.response });
+    }
+
     async listLaboratorys(req, res)
     {
         const response = await LaboratoryService.listLaboratorysActiveService();
+
+        return res.status(200).json({ status: true, response });
+    }
+
+    async listInactiveLaboratorys(req, res)
+    {
+        const response = await LaboratoryService.listInactiveLaboratorysService();
 
         return res.status(200).json({ status: true, response });
     }

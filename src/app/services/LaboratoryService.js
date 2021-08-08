@@ -13,6 +13,15 @@ class LaboratoryService
 
             const { name, address, opening_time, closing_time, phone } = data;
 
+            if (name === '' || address === '' || opening_time === '' || closing_time === '' || phone === '') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são de preenchimento obrigatório.'
+                };
+            }
+
             const laboratory = await LaboratoryModel.create({ uuid, name, address, opening_time, closing_time, phone });
 
             if (laboratory) {
@@ -45,6 +54,16 @@ class LaboratoryService
     {
         const laboratorys = await LaboratoryModel.findAll({
             where: { status: true },
+            attributes: ['id', 'uuid', 'name', 'address', 'opening_time', 'closing_time', 'phone']
+        });
+
+        return laboratorys;
+    }
+
+    async listInactiveLaboratorysService()
+    {
+        const laboratorys = await LaboratoryModel.findAll({
+            where: { status: false },
             attributes: ['id', 'uuid', 'name', 'address', 'opening_time', 'closing_time', 'phone']
         });
 
@@ -101,6 +120,15 @@ class LaboratoryService
 
             const { name, address, opening_time, closing_time, phone } = data;
 
+            if (name === '' || address === '' || opening_time === '' || closing_time === '' || phone === '') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são de preenchimento obrigatório.'
+                };
+            }
+
             const laboratory = await LaboratoryModel.findOne({
                 where: { id: id_laboratory, status: true }
             });
@@ -127,6 +155,42 @@ class LaboratoryService
             return {
                 status: false,
                 message: 'Laboratório informado não localizado.'
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async activateLaboratoryService(id)
+    {
+        try {
+
+            const laboratory = await LaboratoryModel.findOne({
+                where: { id, status: false }
+            });
+
+            if (laboratory) {
+                const response = await LaboratoryModel.update(
+                    { status: true },
+                    { where: { id } }
+                );
+
+                if (response) {
+                    return {
+                        status: true,
+                        response: 'Laboratório ativado com sucesso.'
+                    }
+                }
+
+                return {
+                    status: false,
+                    response: 'Ocorreu algum erro ao ativar laboratório.'
+                }
+            }
+
+            return {
+                status: false,
+                response: 'Laboratório está ativo ou não foi localizado.'
             }
         } catch (error) {
             console.log(error);

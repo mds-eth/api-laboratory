@@ -24,13 +24,17 @@ class Routes
         this.routes.use(middlewareJWT);
 
         this.routes.get('/api/v1/exam', ExamController.listExams);
+        this.routes.get('/api/v1/inactive-exams', ExamController.listInactiveExams);
         this.routes.post('/api/v1/exam', ExamController.createExam);
         this.routes.put('/api/v1/exam/:id_exam', ExamController.updateExam);
+        this.routes.put('/api/v1/exam/activate-exam/:id_exam', ExamController.activateExam);
         this.routes.delete('/api/v1/exam/:id_exam', ExamController.deleteExam);
 
         this.routes.get('/api/v1/laboratory', LaboratoryController.listLaboratorys);
+        this.routes.get('/api/v1/inactive-laboratory', LaboratoryController.listInactiveLaboratorys);
         this.routes.post('/api/v1/laboratory', LaboratoryController.createLaboratory);
         this.routes.put('/api/v1/laboratory/:id_laboratory', LaboratoryController.updateLaboratory);
+        this.routes.put('/api/v1/laboratory/activate-laboratory/:id_laboratory', LaboratoryController.activateLaboratory);
         this.routes.delete('/api/v1/laboratory/:id_laboratory', LaboratoryController.deleteLaboratory);
 
         this.routes.post('/api/v1/association-exam-laboratory', AssociationController.createAssociatonExamLaboratory);

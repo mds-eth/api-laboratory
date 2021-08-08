@@ -26,9 +26,34 @@ class ExamController
         return res.status(400).json({ status: false, response: response.message });
     }
 
+    async activateExam(req, res)
+    {
+        const { id_exam } = req.params;
+
+        if (id_exam === '') {
+            return res.status(400).json({ status: false, response: 'ID Exame à ser excluído não informado.' });
+        }
+
+        const response = await ExamService.activateExamService(id_exam);
+
+        console.log(response);
+        if (response.status) {
+            return res.status(200).json({ status: true, response: response.response });
+        }
+
+        return res.status(400).json({ status: false, response: response.message });
+    }
+
     async listExams(req, res)
     {
         const response = await ExamService.listExamActiveService();
+
+        return res.status(200).json({ status: true, response });
+    }
+
+    async listInactiveExams(req, res)
+    {
+        const response = await ExamService.listInactiveExamsService();
 
         return res.status(200).json({ status: true, response });
     }

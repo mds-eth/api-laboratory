@@ -13,6 +13,24 @@ class ExamService
 
             const { name, type, value } = data;
 
+            if (name === '' || type === '' || value === '') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são obrigatórios.'
+                }
+            }
+
+            if (typeof value !== 'number') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Campo valor enviado incorretamente.'
+                }
+            }
+
             const exame = await ExamModel.create({ uuid, name, type, value });
 
             if (exame) {
@@ -32,6 +50,7 @@ class ExamService
             };
 
         } catch (error) {
+            console.log(error);
             return {
                 statusCode: 400,
                 valid: false,
@@ -51,6 +70,16 @@ class ExamService
         return exams;
     }
 
+    async listInactiveExamsService()
+    {
+        const exams = await ExamModel.findAll({
+            where: { status: false },
+            attributes: ['id', 'uuid', 'name', 'type', 'value']
+        });
+
+        return exams;
+    }
+
     async updateExamService(params)
     {
 
@@ -58,6 +87,24 @@ class ExamService
             const { id_exam, data } = params;
 
             const { name, type, value } = data;
+
+            if (name === '' || type === '' || value === '') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são obrigatórios.'
+                }
+            }
+
+            if (typeof value !== 'number') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Campo valor enviado incorretamente.'
+                }
+            }
 
             const exam = await ExamModel.findOne({
                 where: { id: id_exam, status: true }
@@ -129,6 +176,37 @@ class ExamService
         return {
             status: false,
             message: 'exame informado não localizado.'
+        }
+    }
+
+    async activateExamService(id)
+    {
+        const exam = await ExamModel.findOne({
+            where: { id, status: false }
+        });
+
+        if (exam) {
+            const response = await ExamModel.update(
+                { status: true },
+                { where: { id } }
+            );
+
+            if (response) {
+                return {
+                    status: true,
+                    response: 'Exame ativo com sucesso.'
+                }
+            }
+
+            return {
+                status: false,
+                message: 'Ocorreu algum erro ao ativar exame.'
+            }
+        }
+
+        return {
+            status: false,
+            message: 'Exame está ativo ou não foi localizado.'
         }
     }
 }

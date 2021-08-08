@@ -9,16 +9,14 @@ class ExamLaboratoryService
     {
         const response = await ExamModel.findAll({
             where: { name: { [Op.like]: `%${examName}%` }, status: true },
-            attributes: ['uuid', 'name', 'type', 'value'],
-            include: [
-                ExamsLaboratorys
-            ]
+            attributes: ['uuid', 'name', 'type', 'value'],            
         });
 
         if (response) {
             return {
                 status: true,
-                response
+                response,
+                examName
             }
         }
 
