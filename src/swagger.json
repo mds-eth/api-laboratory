@@ -14,7 +14,7 @@
             "description": "API Local"
         },
         {
-            "url": "http://192.169.10.2:3003/v1",
+            "url": "http://18.231.63.144:3003",
             "description": "API AWS ec2"
         }
     ],

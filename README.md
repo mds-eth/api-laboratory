@@ -3,13 +3,20 @@
 # Indice
 
 - [Sobre](#-sobre)
+- [Deploy](#-deploy)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como baixar o projeto](#-como-baixar-o-projeto)
 - [Features disponíveis](#-features-disponíveis)
 
 ## 🔖&nbsp; Sobre
 
-A **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratórios, e manter seu dados. Bem como realizar a vinculação de exames/laboratórios ativos e válidos.
+A **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratórios. Bem como realizar a vinculação de exames/laboratórios ativos e válidos.
+
+---
+
+## 🛠&nbsp; Deploy
+
+Deploy da aplicação realizado na AWS EC2.
 
 ---
 
@@ -26,6 +33,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [PM2](https://pm2.keymetrics.io/)
 - [Docker](https://www.docker.com/)
 - [Swagger](https://swagger.io/)
+- [AWS EC2](https://aws.amazon.com/pt/ec2/getting-started/)
 
 ---
 
