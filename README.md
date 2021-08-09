@@ -18,6 +18,10 @@ A **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratór
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Node.js](https://nodejs.org/en/)
+- [MySQL](https://www.mysql.com/)
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/)
+- [JWT](https://jwt.io/)
 - [Sequelize](https://sequelize.org/)
 - [PM2](https://pm2.keymetrics.io/)
 - [Docker](https://www.docker.com/)
