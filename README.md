@@ -32,6 +32,10 @@ $ npm run dev
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Node.js](https://nodejs.org/en/)
+- [Sequelize](https://sequelize.org/)
+- [PM2](https://pm2.keymetrics.io/)
+- [Docker](https://www.docker.com/)
+- [Swagger](https://swagger.io/)
 
 ### Features
 
