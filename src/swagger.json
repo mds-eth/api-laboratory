@@ -666,13 +666,13 @@
                         "type": "string"
                     },
                     "opening_time": {
-                        "type": "float"
+                        "type": "string"
                     },
                     "closing_time": {
-                        "type": "float"
+                        "type": "string"
                     },
                     "phone": {
-                        "type": "float"
+                        "type": "string"
                     }
                 }
             },
