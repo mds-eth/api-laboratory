@@ -1,6 +1,14 @@
 # API Exames - Laboratórios
 
-## Essa API tem como objetivo o cadastro, atualização, exclusão lógica, e busca de exames e laboratórios. Bem como vinculação de exames à laboratórios
+### Arquitetura
+
+- [x] NodeJS
+- [x] Sequelize como ORM
+- [x] PM2 para gerenciador de processos
+- [x] Hospedagem AWS EC2
+- [x] Banco de dados Mysql
+- [x] Dockerfile para container da aplicação
+- [x] Imagem docker para mysql
 
 ### Features
 
@@ -31,14 +39,6 @@
 
 - [x] Realiza a busca de um exame pelo nome, e retorna todos os laboratórios vinculados à ele.
 
-### Arquitetura
 
-- [x] NodeJS
-- [x] Sequelize como ORM
-- [x] PM2 para gerenciador de processos
-- [x] Hospedagem AWS EC2
-- [x] Banco de dados Mysql
-- [x] Dockerfile para container da aplicação
-- [x] Imagem docker para mysql
 
 
