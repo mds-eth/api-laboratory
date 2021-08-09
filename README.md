@@ -5,10 +5,11 @@
 - [Sobre](#-sobre)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como baixar o projeto](#-como-baixar-o-projeto)
+- [Features disponíveis](#-features-disponíveis)
 
 ## 🔖&nbsp; Sobre
 
-A API **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratórios, e manter seu dados. Bem como realizar a vinculação de exames/laboratórios ativos e válidos.
+A **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratórios, e manter seu dados. Bem como realizar a vinculação de exames/laboratórios ativos e válidos.
 
 ---
 
@@ -48,8 +49,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
     # Server iniciará na porta:3003
     $ acessar: http://localhost:3003
-    
+
 ```
+---
 
 ### Arquitetura
 
@@ -61,7 +63,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [x] Dockerfile para container da aplicação
 - [x] Imagem docker para mysql
 
-### Features
+---
+
+## 🚀 Features disponíveis
 
 ### Exames
 
