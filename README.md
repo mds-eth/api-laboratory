@@ -6,6 +6,7 @@
 - [Deploy](#-deploy)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como baixar o projeto](#-como-baixar-o-projeto)
+- [Utilizando API](#-utilizando-api)
 - [Features disponíveis](#-features-disponíveis)
 
 ## 🔖&nbsp; Sobre
