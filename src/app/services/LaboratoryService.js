@@ -175,7 +175,10 @@ class LaboratoryService
                 message: 'Laboratório informado não localizado.'
             }
         } catch (error) {
-            console.log(error);
+            return {
+                status: false,
+                message: 'Erro ao atualizar laboratório.'
+            }
         }
     }
 
@@ -211,7 +214,10 @@ class LaboratoryService
                 response: 'Laboratório está ativo ou não foi localizado.'
             }
         } catch (error) {
-            console.log(error);
+            return {
+                status: false,
+                message: 'Erro ao ativar laboratório.'
+            }
         }
     }
 }

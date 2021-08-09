@@ -36,7 +36,6 @@ class ExamController
 
         const response = await ExamService.activateExamService(id_exam);
 
-        console.log(response);
         if (response.status) {
             return res.status(200).json({ status: true, response: response.response });
         }

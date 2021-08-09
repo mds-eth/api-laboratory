@@ -151,7 +151,10 @@ class ExamService
                 message: 'Exame informado não localizado.'
             }
         } catch (error) {
-            console.log(error);
+            return {
+                status: false,
+                message: 'Erro ao atualizar exame.'
+            }
         }
     }
 
