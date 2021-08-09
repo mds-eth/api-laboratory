@@ -68,6 +68,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ```
 ---
 
+## 🗂 Utilizando API
+
+1 - Primeiramente deve ser realizado integração com endpoint **/api/v1/create-session**, enviando em seu **header** api-secret.
+
+2 - O sucesso da integração resultará em um JWT que deve ser utilizado nas demais integrações.
+
+3 - Em todas as chamadas, o JWT é obrigatório, resultando em 401 caso não seja enviado.
+
+---
+
 ## 🚀 Features disponíveis
 
 ### Exames
@@ -96,6 +106,11 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ### Busca por exame
 
 - [x] Realiza a busca de um exame pelo nome, e retorna todos os laboratórios vinculados à ele.
+
+
+### Controle de Sessão
+
+- [x] Realiza o controle de sessão para utilização da API.
 
 
 
