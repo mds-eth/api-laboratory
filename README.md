@@ -57,18 +57,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ```
 ---
 
-### Arquitetura
-
-- [x] NodeJS
-- [x] Sequelize como ORM
-- [x] PM2 para gerenciador de processos
-- [x] Hospedagem AWS EC2
-- [x] Banco de dados Mysql
-- [x] Dockerfile para container da aplicação
-- [x] Imagem docker para mysql
-
----
-
 ## 🚀 Features disponíveis
 
 ### Exames
