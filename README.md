@@ -71,11 +71,11 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 🗂 Utilizando API
 
-1 - Primeiramente deve ser realizado integração com endpoint **/api/v1/create-session**, enviando em seu **header** api-secret.
+1 - Primeiramente deve ser realizado integração com endpoint **/api/v1/create-session**, enviando em seu **header** o campo **api-secret**.
 
-2 - O sucesso da integração resultará em um JWT que deve ser utilizado nas demais integrações.
+2 - O sucesso da integração resultará em um **JWT** que deve ser utilizado nas demais integrações.
 
-3 - Em todas as chamadas, o JWT é obrigatório, resultando em 401 caso não seja enviado.
+3 - Em todas as chamadas, o **JWT** é obrigatório, resultando em **401** caso não seja enviado.
 
 ---
 
