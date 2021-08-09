@@ -1,0 +1,11 @@
+version: "2"
+services:
+  api:
+    build: .
+    command: node build/server.js
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3003:3003"
+    restart: always  
