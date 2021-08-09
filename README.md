@@ -1,21 +1,27 @@
 # API Exames - Laboratórios
 
-# Clone este repositório
-$ git clone <https://github.com/michaeldouglassoares/api-laboratory>
+## 🗂 Como baixar o projeto
 
-# Acesse a pasta do projeto no terminal/cmd
-$ cd api-laboratory
+```bash
 
-# Instale as dependências
-$ npm install
+    # Clonar o repositório
+    $ git clone https://github.com/michaeldouglassoares/api-laboratory
 
-# Necessário rodar as migrations para criação das tabelas
-$ npm run migrate
+    # Entrar no diretório
+    $ cd api-laboratory
 
-# Execute a aplicação em modo de desenvolvimento
-$ npm run dev
+    # Instalar as dependências
+    $ npm install
 
-# O servidor inciará na porta:3003 - acesse <http://localhost:3003> 
+    # Rodar as migrations
+    $ npm run migrate
+
+    # Iniciar o projeto
+    $ npm run dev
+
+    # Server iniciará na porta:3003
+    $ acessar: http://localhost:3003
+```
 
 ### Arquitetura
 
