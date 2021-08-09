@@ -19,6 +19,11 @@ class Routes
 
     createRoutes()
     {
+        this.routes.get('/', (req, res) =>
+        {
+            return res.status(200).json({ status: true, message: 'Server is Running... Yeahhhhh' });
+        });
+        
         this.routes.post('/api/v1/create-session', middlewareApiSecret, SessionController.createSession);
 
         this.routes.use(middlewareJWT);
@@ -40,7 +45,7 @@ class Routes
         this.routes.post('/api/v1/association-exam-laboratory', AssociationController.createAssociatonExamLaboratory);
         this.routes.delete('/api/v1/exame/:id_exam/laboratory/:id_laboratory', AssociationController.disassociateExamLaboratory);
 
-        this.routes.get('/api/v1/list-laboratorys/:exam_name', ExamLaboratoryController.getListLaboratorysExam);
+        this.routes.get('/api/v1/list-laboratorys/:exam_name', ExamLaboratoryController.getListLaboratorysExam);        
 
         this.routes.get('*', (req, res) =>
         {

@@ -1,5 +1,22 @@
 # API Exames - Laboratórios
 
+# Clone este repositório
+$ git clone <https://github.com/michaeldouglassoares/api-laboratory>
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd api-laboratory
+
+# Instale as dependências
+$ npm install
+
+# Necessário rodar as migrations para criação das tabelas
+$ npm run migrate
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
+
+# O servidor inciará na porta:3003 - acesse <http://localhost:3003> 
+
 ### Arquitetura
 
 - [x] NodeJS
@@ -9,6 +26,12 @@
 - [x] Banco de dados Mysql
 - [x] Dockerfile para container da aplicação
 - [x] Imagem docker para mysql
+
+### 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Node.js](https://nodejs.org/en/)
 
 ### Features
 
