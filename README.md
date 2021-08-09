@@ -26,3 +26,19 @@
 
 - [x] Associa um exame ativo à um ou mais laboratórios
 - [x] Desassocia um exame ativo de um laboratório ativo
+
+### Busca por exame
+
+- [x] Realiza a busca de um exame pelo nome, e retorna todos os laboratórios vinculados à ele.
+
+### Arquitetura
+
+- [x] NodeJS
+- [x] Sequelize como ORM
+- [x] PM2 para gerenciador de processos
+- [x] Hospedagem AWS EC2
+- [x] Banco de dados Mysql
+- [x] Dockerfile para container da aplicação
+- [x] Imagem docker para mysql
+
+
