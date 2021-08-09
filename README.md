@@ -62,6 +62,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
     # Server iniciará na porta:3003
     $ acessar: http://localhost:3003
 
+    # Ou rodar com aplicação com docker (rodará na porta 3004)
+    $ docker-compose up -d --build
+
 ```
 ---
 

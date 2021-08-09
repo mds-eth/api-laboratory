@@ -7,5 +7,5 @@ services:
       - .:/usr/app/
       - /usr/app/node_modules
     ports:
-      - "3003:3003"
+      - "3004:3003"
     restart: always  
