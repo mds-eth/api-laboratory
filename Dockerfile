@@ -17,4 +17,4 @@ RUN npm run build
 
 COPY ./src/swagger.json /var/www/laboratory_api/build/
 
-EXPOSE 3003
+EXPOSE 3004
