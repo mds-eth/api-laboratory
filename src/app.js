@@ -1,7 +1,5 @@
 import express from 'express';
 
-import cors from 'cors';
-
 import routes from './routes';
 
 import swaggerUi from 'swagger-ui-express';
@@ -16,7 +14,6 @@ class App
         this.server = express();
 
         this.middlewares();
-        this.configCors();
         this.createRoutes();
     }
 
@@ -24,13 +21,6 @@ class App
     {
         this.server.use(express.json());
         this.server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-    }
-
-    configCors()
-    {
-        const whitelist = ['http://localhost:3000'];
-
-        this.server.use(cors(whitelist));
     }
 
     createRoutes()
