@@ -1,5 +1,29 @@
 # API Exames - Laboratórios
 
+# Indice
+
+- [Sobre](#-sobre)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Como baixar o projeto](#-como-baixar-o-projeto)
+
+## 🔖&nbsp; Sobre
+
+A API **Api Exames Laboratórios** tem como objetivo o controle de exames/laboratórios, e manter seu dados. Bem como realizar a vinculação de exames/laboratórios ativos e válidos.
+
+---
+
+## 🛠 Tecnologias utilizadas
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Node.js](https://nodejs.org/en/)
+- [Sequelize](https://sequelize.org/)
+- [PM2](https://pm2.keymetrics.io/)
+- [Docker](https://www.docker.com/)
+- [Swagger](https://swagger.io/)
+
+---
+
 ## 🗂 Como baixar o projeto
 
 ```bash
@@ -16,11 +40,15 @@
     # Rodar as migrations
     $ npm run migrate
 
+    # Arquivo .env
+    $ necessário criação de arquivo .env que contenha a mesma estrutura de .env.example com as devidas configurações
+
     # Iniciar o projeto
     $ npm run dev
 
     # Server iniciará na porta:3003
     $ acessar: http://localhost:3003
+    
 ```
 
 ### Arquitetura
@@ -32,16 +60,6 @@
 - [x] Banco de dados Mysql
 - [x] Dockerfile para container da aplicação
 - [x] Imagem docker para mysql
-
-### 🛠 Tecnologias
-
-As seguintes ferramentas foram usadas na construção do projeto:
-
-- [Node.js](https://nodejs.org/en/)
-- [Sequelize](https://sequelize.org/)
-- [PM2](https://pm2.keymetrics.io/)
-- [Docker](https://www.docker.com/)
-- [Swagger](https://swagger.io/)
 
 ### Features
 
