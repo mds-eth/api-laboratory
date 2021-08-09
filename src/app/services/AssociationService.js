@@ -49,6 +49,8 @@ class AssociationService
         let idsLab = '';
         let loopExists = 0;
         let loopNotExists = 0;
+        let qtdExists = 0;
+        let labelExists = '';
 
         for (var i in ids_laboratory) {
             const idLaboratory = ids_laboratory[i];
@@ -71,6 +73,8 @@ class AssociationService
             });
 
             if (existsAssociation) {
+                qtdExists++;
+                labelExists += `${idLaboratory},`;
                 continue;
             }
 
@@ -91,7 +95,7 @@ class AssociationService
         return {
             statusCode: 200,
             valid: true,
-            message: `Exame: ${examName}, foi vinculado aos laboratórios com ids: ${idsLab.slice(0, -1)}. Ids laboratórios: ${idsNotLab.slice(0, -1)} não foram localizados.`,
+            message: `Exame: ${examName}, foi vinculado aos laboratórios com ids: ${idsLab.slice(0, -1)}. Ids laboratórios: ${idsNotLab.slice(0, -1)} não foram localizados. Ids: ${labelExists.slice(0, -1)} já existiam vinculação`,
         }
     }
 

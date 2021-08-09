@@ -18,7 +18,7 @@ class SessionService
 
             return session;
         } catch (error) {
-            return false
+            return false;
         }
     }
 }

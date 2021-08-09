@@ -22,6 +22,15 @@ class ExamService
                 }
             }
 
+            if (typeof name !== 'string' || typeof type !== 'string') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Campos name ou type inválidos.'
+                }
+            }
+
             if (typeof value !== 'number') {
                 return {
                     statusCode: 400,
@@ -31,13 +40,13 @@ class ExamService
                 }
             }
 
-            const exame = await ExamModel.create({ uuid, name, type, value });
+            const examResponse = await ExamModel.create({ uuid, name, type, value });
 
-            if (exame) {
+            if (examResponse) {
                 return {
                     statusCode: 201,
                     valid: true,
-                    response: exame,
+                    response: examResponse,
                     message: 'Exame cadastrado com sucesso'
                 };
             }
@@ -45,12 +54,11 @@ class ExamService
             return {
                 statusCode: 400,
                 valid: false,
-                response: exame,
+                response: examResponse,
                 message: 'Ocorreu algum erro ao realizar o cadastro de novo Exame.'
             };
 
         } catch (error) {
-            console.log(error);
             return {
                 statusCode: 400,
                 valid: false,
@@ -94,6 +102,15 @@ class ExamService
                     valid: false,
                     response: false,
                     message: 'Todos os campos são obrigatórios.'
+                }
+            }
+
+            if (typeof name !== 'string' || typeof type !== 'string') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Campos name ou type inválidos.'
                 }
             }
 

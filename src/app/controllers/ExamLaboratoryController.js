@@ -16,7 +16,7 @@ class ExamLaboratoryController
             return res.status(200).json({ status: true, examName: response.examName, response: response.response });
         }
 
-        return res.status(400).json({ status: false, response });
+        return res.status(400).json({ status: false, response: response.response, examName: response.examName });
 
     }
 }

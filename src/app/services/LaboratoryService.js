@@ -22,6 +22,15 @@ class LaboratoryService
                 };
             }
 
+            if (typeof name !== 'string' || typeof address !== 'string' || typeof opening_time !== 'string' || typeof closing_time !== 'string' || typeof phone !== 'string') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são do tipo string.'
+                };
+            }
+
             const laboratory = await LaboratoryModel.create({ uuid, name, address, opening_time, closing_time, phone });
 
             if (laboratory) {
@@ -126,6 +135,15 @@ class LaboratoryService
                     valid: false,
                     response: false,
                     message: 'Todos os campos são de preenchimento obrigatório.'
+                };
+            }
+
+            if (typeof name !== 'string' || typeof address !== 'string' || typeof opening_time !== 'string' || typeof closing_time !== 'string' || typeof phone !== 'string') {
+                return {
+                    statusCode: 400,
+                    valid: false,
+                    response: false,
+                    message: 'Todos os campos são do tipo string.'
                 };
             }
 
